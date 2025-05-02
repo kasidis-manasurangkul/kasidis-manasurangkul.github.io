@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Animal Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Animal Data Visualization</h1>
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-target="worldMapSection">World Map</button>
+            <button class="tab-btn" data-target="bubbleChartSection">Families</button>
+            <button class="tab-btn" data-target="barChartsSection">Diet Stats</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- World Map Section -->
+        <section id="worldMapSection" class="tab-section active">
+            <div id="dataIntro" class="card fade-in" style="width: 90%; margin-bottom: 20px;">
+                <h2>About the Data</h2>
+                <p>This dashboard visualizes data about various animals, including their distribution, families, and
+                    physical characteristics based on diet.</p>
+                <p id="totalAnimals">Loading animal count...</p>
+            </div>
+            <div id="mapAndList">
+                <div id="worldMap" class="card fade-in" style="width: 75%; height: 52vh;"></div>
+                <div id="familyList" class="card fade-in" style="width: 25%; height: 52vh; text-align: start;">
+                    <h2>Animals Found</h2>
+                    <p>Click a country on the map</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bubble Chart Section -->
+        <section id="bubbleChartSection" class="tab-section">
+            <div class="card fade-in" id="bubbleCard" style="width: 90%; height: 70vh;">
+                <h2>Animals by Family</h2>
+                <div id="bubbleChart"></div>
+            </div>
+        </section>
+
+        <!-- Bar Charts Section -->
+        <section id="barChartsSection" class="tab-section">
+            <div id="barChartsRow">
+                <div class="card fade-in" id="heightBarCard" style="flex: 1; height: 70vh;">
+                    <h2>Average Height by Diet</h2>
+                    <div id="heightBarChart"></div>
+                </div>
+                <div class="card fade-in" id="weightBarCard" style="flex: 1; height: 70vh;">
+                    <h2>Average Weight by Diet</h2>
+                    <div id="weightBarChart"></div>
+                </div>
+                <div class="card fade-in" id="lifespanBarCard" style="flex: 1; height: 70vh;">
+                    <h2>Average Lifespan by Diet</h2>
+                    <div id="lifespanBarChart"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="tooltip" class="hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
