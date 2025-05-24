@@ -1,0 +1,203 @@
+.print-container-A4 {
+    position: relative;
+    height: 11.7in;
+    width: 8.3in;
+    margin: 0 auto;
+    padding: 40px 30px 30px 30px;
+    background: #fff;
+    font-family: 'Sarabun', Arial, sans-serif;
+    font-size: 15px;
+    color: #222;
+    border: 1px solid #222;
+
+    .header {
+        margin-bottom: 6px;
+
+        .title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+
+            .company-logo {
+                width: 100px;
+                margin-right: 10px;
+            }
+
+            .company-name-th {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .company-name-en {
+                font-size: 14px;
+                margin-bottom: 4px;
+                font-weight: 500;
+            }
+        }
+
+        .company-address {
+            font-size: 12px;
+            color: #555;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+    }
+
+    .header-line {
+        border: none;
+        border-bottom: 2px solid #222;
+        margin: 2px 0 5px 0;
+        width: 100%;
+    }
+
+    .document-section {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+
+        .document-label {
+            min-width: 60px;
+            font-weight: 600;
+            font-size: 15px;
+            margin-right: 10px;
+            text-align: right;
+        }
+
+        .document-value {
+            border-bottom: 1.2px dotted #333;
+            min-width: 60%;
+            font-size: 14px;
+            padding: 1px 5px;
+            color: #333;
+        }
+
+        .info-label {
+            text-align: right;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
+
+    .customer-section,
+    .ref-section {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 2px;
+
+        .customer-label,
+        .ref-label {
+            min-width: 60px;
+            font-weight: 600;
+            font-size: 15px;
+            margin-right: 10px;
+            text-align: right;
+        }
+
+        .customer-value,
+        .ref-value {
+            min-width: 60%;
+            font-size: 14px;
+            padding: 1px 5px;
+            color: #333;
+        }
+    }
+
+    .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        margin-bottom: 10px;
+
+        thead th {
+            background: #eaeaea;
+            border: 1.2px solid #333;
+            padding: 5px 0;
+            font-weight: 700;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tbody td {
+            border: 1.2px solid #333;
+            border-bottom: 0px none !important;
+            font-size: 14px;
+            padding: 5px 3px;
+            vertical-align: top;
+        }
+
+        tbody tr {
+            height: 600px;
+        }
+
+        tfoot td {
+            border: 1.2px solid #333;
+            font-size: 14px;
+            padding:10px 10px;
+            vertical-align: bottom;
+        }
+
+        tfoot tr {
+            height: 50px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .left {
+            text-align: left;
+            padding-left: 8px;
+        }
+
+        .right {
+            text-align: right;
+            padding-right: 8px;
+        }
+
+        .total-label {
+            background: #f2f2f2;
+            font-weight: 500;
+        }
+
+        .total-value {
+            background: #f2f2f2;
+            font-weight: 500;
+        }
+
+        .bold {
+            font-weight: 700;
+            font-size: 15px;
+        }
+    }
+
+    .signature-section {
+        display: flex;
+        justify-content: center;
+        border: 1px solid #222;
+        padding: 20px;
+        gap: 100px;
+        margin: 5px 0 15px 0;
+
+        .sign-box {
+            width: 300px;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+
+            .label {
+                font-size: 14px;
+                margin-right: 5px;
+                width: fit-content;
+            }
+
+            .line {
+                border-bottom: 1.5px dotted #555;
+                width: 200px;
+                height: 22px;
+                margin-bottom: 3px;
+            }
+        }
+    }
+}
