@@ -107,7 +107,7 @@ export class AppComponent {
     resetPrintDataToTabDefault(tab: string) {
         const found = this.addressTabs.find(t => t.value === tab);
         this.printData = {
-            docNo: '654',
+            docNo: '1',
             date: '19/04/2568',
             customer: found ? found.customer : '',
             address: found ? found.address : '',
@@ -141,7 +141,7 @@ export class AppComponent {
 
     getCopyPages() {
         // Number of copies, exclude original (first), but minimum is 0
-        const n = Math.max(0, Math.min(Number(this.copies) || 1, 10) - 1);
+        const n = Math.max(0, Math.min(Number(this.copies) || 1, 10));
         return Array(n).fill(0);
     }
 
