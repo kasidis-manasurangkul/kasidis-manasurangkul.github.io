@@ -1,5 +1,21 @@
-<div class="print-container-A4">
-    <!-- HEADER SECTION -->
+<!-- Tabs above template -->
+<div class="tab-bar no-print">
+    <div *ngFor="let tab of addressTabs" class="tab" [class.active]="activeTab === tab.value"
+        (click)="setTab(tab.value)">
+        {{ tab.label }}
+    </div>
+    <div class="copies-input-box">
+        <label for="copyInput">จำนวนสำเนา:</label>
+        <input id="copyInput" type="number" [(ngModel)]="copies" min="1" max="10" class="copies-input" />
+    </div>
+    <button class="print-btn" (click)="printDiv()">
+        <span>พิมพ์เอกสาร</span>
+        <span class="ripple"></span>
+    </button>
+</div>
+
+<!-- ORIGINAL: Show on web, show on print as first page -->
+<div id="print-container-A4" class="print-container-A4" *ngIf="!isPrinting || isPrintingPageIndex === 0">
     <div class="header">
         <div class="title-row">
             <div class="title-row" style="align-items: center; margin-bottom: 5px;">
@@ -12,15 +28,11 @@
                         CHAIKIT SERVICE CO., LTD. (Head Office)
                     </div>
                 </div>
-
             </div>
-
             <div class="company-name-th">
-                ใบใบเสร็จรับเงิน/ใบกำกับภาษี
+                {{ receiptTitle }}
             </div>
-
         </div>
-
         <hr class="header-line" />
         <div class="company-address">
             3874/2 ถนนพระราม 4 พระโขนง คลองเตย กรุงเทพฯ 10110
@@ -30,7 +42,7 @@
             เลขประจำตัวผู้เสียภาษีอากร 0105535024359
         </div>
     </div>
-
+    <!-- ... rest of template as before ... -->
     <!-- document INFO -->
     <div style="margin-bottom: 10px;">
         <div class="document-section">
@@ -38,7 +50,7 @@
                 เลขที่ :
             </div>
             <div class="document-value">
-                {{ printData?.customer || '...'}}
+                <input [(ngModel)]="printData.docNo" type="text" class="plain-input" />
             </div>
         </div>
         <div class="document-section">
@@ -46,12 +58,11 @@
                 วันที่ :
             </div>
             <div class="document-value">
-                {{ printData?.address || '...'}}
+                <input [(ngModel)]="printData.date" type="text" class="plain-input" />
             </div>
             <div class="info-label">[ เอกสารออกเป็นชุด]</div>
         </div>
     </div>
-
     <!-- CUSTOMER INFO -->
     <div style="border: 1px black solid; padding: 5px; margin-bottom: 10px;">
         <div class="customer-section">
@@ -59,7 +70,7 @@
                 ลูกค้า :
             </div>
             <div class="customer-value">
-                {{ printData?.customer || '...'}}
+                <input [(ngModel)]="printData.customer" style="width: 680px;" type="text" class="plain-input" />
             </div>
         </div>
         <div class="ref-section">
@@ -67,12 +78,11 @@
                 ที่อยู่ :
             </div>
             <div class="ref-value">
-                {{ printData?.address || '...'}}
+                <textarea [(ngModel)]="printData.address" rows="2" style="width: 680px; resize: none;"
+                    class="plain-textarea"></textarea>
             </div>
         </div>
     </div>
-
-
     <!-- TABLE SECTION -->
     <table class="invoice-table">
         <thead>
@@ -84,28 +94,53 @@
         </thead>
         <tbody>
             <tr>
-                <td class="center"></td>
-                <td class="left"></td>
-                <td class="right"></td>
+                <td class="center" style="vertical-align: top;"></td>
+                <td class="left detail-cell" style="vertical-align: top;">
+                    <div class="row">
+                        <div class="label">ยี่ห้อ: </div>
+                        <input [(ngModel)]="printData.detail.brand" type="text" class="plain-input"
+                            style="width: 300px;" />
+                    </div>
+                    <div class="row">
+                        <div class="label">ทะเบียน: </div>
+                        <input [(ngModel)]="printData.detail.plate" type="text" class="plain-input"
+                            style="width: 300px;" />
+                    </div>
+                    <div class="row">
+                        <div class="label">เลขที่เคลม: </div>
+                        <input [(ngModel)]="printData.detail.claimNo" type="text" class="plain-input"
+                            style="width: 300px;" />
+                    </div>
+                    <div class="row">
+                        <span class="label">กรมธรรม์: </span>
+                        <input [(ngModel)]="printData.detail.policyNo" type="text" class="plain-input"
+                            style="width: 300px;" />
+                    </div>
+                </td>
+                <td class="right" style="vertical-align: top;">
+                    <input [(ngModel)]="printData.detail.amount" type="number" min="0" step="0.01"
+                        class="plain-input amount-input" />
+                </td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="2" class="right total-label">จำนวนเงินรวม</td>
-                <td class="right total-value">{{ printData?.subtotal | number: '1.2-2' }}</td>
+                <td class="right total-value">{{ subtotal | number: '1.2-2' }}</td>
             </tr>
             <tr>
                 <td colspan="2" class="right total-label">จำนวนภาษีมูลค่าเพิ่ม</td>
-                <td class="right total-value">{{ printData?.vat | number: '1.2-2' }}</td>
+                <td class="right total-value">{{ vat | number: '1.2-2' }}</td>
             </tr>
             <tr>
-                <td colspan="1" class="right total-label bold">จำนวนเงินทั้งสิ้น</td>
-                <td class="center total-label"></td>
-                <td class="right total-value bold">{{ printData?.total | number: '1.2-2' }}</td>
+                <td colspan="1" class="right total-label">
+                    จำนวนเงินทั้งสิ้น<br />
+                </td>
+                <td class="center total-label">{{ bahtText }}</td>
+                <td class="right total-value">{{ total | number: '1.2-2' }}</td>
             </tr>
         </tfoot>
     </table>
-
     <!-- SIGNATURE SECTION -->
     <div class="signature-section">
         <div class="sign-box">
@@ -118,3 +153,137 @@
         </div>
     </div>
 </div>
+
+<!-- COPIES: Only show on print, never on web -->
+<ng-container *ngIf="isPrinting">
+    <ng-container *ngFor="let page of getCopyPages(); let i = index">
+        <div class="print-container-A4 print-only" #eachPage>
+            <div class="header">
+                <div class="title-row">
+                    <div class="title-row" style="align-items: center; margin-bottom: 5px;">
+                        <img class="company-logo" src="assets/logo.gif" alt="Logo" />
+                        <div>
+                            <div class="company-name-th">
+                                บริษัท ชัยกิจเซอร์วิส จำกัด (สำนักงานใหญ่)
+                            </div>
+                            <div class="company-name-en">
+                                CHAIKIT SERVICE CO., LTD. (Head Office)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company-name-th">
+                        {{ copyReceiptTitle }}
+                    </div>
+                </div>
+                <hr class="header-line" />
+                <div class="company-address">
+                    3874/2 ถนนพระราม 4 พระโขนง คลองเตย กรุงเทพฯ 10110
+                    โทร : 02-249-9414-5 , 02-671-6168-70 แฟกซ์ : 02-249-4837<br>
+                    3874/2 RAMA 4 ROAD, PRAKANONG, KLONGTOEY, BANGKOK 10110 TEL : 02-249-9414-5 , 02-671-6168-70 FAX :
+                    02-249-4837<br>
+                    เลขประจำตัวผู้เสียภาษีอากร 0105535024359
+                </div>
+            </div>
+            <!-- ...same as above body... -->
+            <div style="margin-bottom: 10px;">
+                <div class="document-section">
+                    <div class="document-label">
+                        เลขที่ :
+                    </div>
+                    <div class="document-value">
+                        {{ printData.docNo }}
+                    </div>
+                </div>
+                <div class="document-section">
+                    <div class="document-label">
+                        วันที่ :
+                    </div>
+                    <div class="document-value">
+                        {{ printData.date }}
+                    </div>
+                    <div class="info-label">[ เอกสารออกเป็นชุด]</div>
+                </div>
+            </div>
+            <div style="border: 1px black solid; padding: 5px; margin-bottom: 10px;">
+                <div class="customer-section">
+                    <div class="customer-label">
+                        ลูกค้า :
+                    </div>
+                    <div class="customer-value">
+                        {{ printData.customer }}
+                    </div>
+                </div>
+                <div class="ref-section">
+                    <div class="ref-label">
+                        ที่อยู่ :
+                    </div>
+                    <div class="ref-value">
+                        <span style="white-space: pre-line">{{ printData.address }}</span>
+                    </div>
+                </div>
+            </div>
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th class="center" style="width: 18%;">ลำดับ</th>
+                        <th class="center" style="width: 70%;">รายการ</th>
+                        <th class="center" style="width: 12%;">จำนวนเงิน</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="center" style="vertical-align: top;"></td>
+                        <td class="left detail-cell" style="vertical-align: top;">
+                            <div class="row">
+                                <div class="label">ยี่ห้อ: </div>
+                                {{ printData.detail.brand }}
+                            </div>
+                            <div class="row">
+                                <div class="label">ทะเบียน: </div>
+                                {{ printData.detail.plate }}
+                            </div>
+                            <div class="row">
+                                <div class="label">เลขที่เคลม: </div>
+                                {{ printData.detail.claimNo }}
+                            </div>
+                            <div class="row">
+                                <span class="label">กรมธรรม์: </span>
+                                {{ printData.detail.policyNo }}
+                            </div>
+                        </td>
+                        <td class="right" style="vertical-align: top;">
+                            {{ printData.detail.amount | number: '1.2-2' }}
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="right total-label">จำนวนเงินรวม</td>
+                        <td class="right total-value">{{ subtotal | number: '1.2-2' }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="right total-label">จำนวนภาษีมูลค่าเพิ่ม</td>
+                        <td class="right total-value">{{ vat | number: '1.2-2' }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="right total-label">
+                            จำนวนเงินทั้งสิ้น<br />
+                        </td>
+                        <td class="center total-label">{{ bahtText }}</td>
+                        <td class="right total-value">{{ total | number: '1.2-2' }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="signature-section">
+                <div class="sign-box">
+                    <div class="label">ผู้รับเงิน</div>
+                    <div class="line"></div>
+                </div>
+                <div class="sign-box">
+                    <div class="label">วันที่</div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

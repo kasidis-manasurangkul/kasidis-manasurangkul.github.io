@@ -1,3 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
+
+body {
+    font-family: 'Sarabun', Arial, sans-serif;
+    background: #f6f6f6;
+}
+
+.tab-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 5px;
+    margin-left: 3px;
+    justify-content: center;
+}
+
+.tab {
+    font-family: 'Sarabun', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #222;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-radius: 7px 7px 0 0;
+    padding: 8px 34px;
+    cursor: pointer;
+    transition: background 0.16s, color 0.16s, border 0.16s;
+    outline: none;
+    margin-bottom: -1px;
+
+    &.active {
+        background: #1967d2;
+        color: #fff;
+        border: 1.5px solid #1967d2;
+        border-bottom: 2px solid #fff;
+    }
+
+    &:hover:not(.active) {
+        background: #ececec;
+        color: #1967d2;
+    }
+}
+
+.copies-input-box {
+    display: flex;
+    align-items: center;
+    margin-left: 24px;
+    font-size: 15px;
+
+    label {
+        margin-right: 6px;
+        font-weight: 600;
+    }
+
+    .copies-input {
+        width: 48px;
+        font-size: 15px;
+        border-radius: 5px;
+        padding: 3px 8px;
+        border: 1px solid #bbb;
+        margin-right: 16px;
+        text-align: right;
+    }
+}
+
+.print-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.print-btn {
+    background: #1967d2;
+    color: #fff;
+    border: none;
+    font-family: 'Sarabun', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 28px;
+    border-radius: 28px;
+    box-shadow: 0 3px 12px 0 rgba(25, 103, 210, 0.09);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.25s;
+    outline: none;
+    z-index: 2;
+    margin-right: 24px;
+
+    &:hover {
+        box-shadow: 0 2px 18px 0 rgba(25, 103, 210, 0.19);
+        background: #1854b4;
+    }
+
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        background: rgba(255, 255, 255, 0.5);
+        width: 120%;
+        height: 120%;
+        left: -10%;
+        top: -10%;
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0.3;
+    }
+
+    &:active .ripple {
+        animation: ripple 0.6s linear;
+    }
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
 .print-container-A4 {
     position: relative;
     height: 11.7in;
@@ -41,7 +162,6 @@
             margin-top: 4px;
             line-height: 1.4;
         }
-
     }
 
     .header-line {
@@ -65,7 +185,6 @@
         }
 
         .document-value {
-            border-bottom: 1.2px dotted #333;
             min-width: 60%;
             font-size: 14px;
             padding: 1px 5px;
@@ -127,14 +246,33 @@
             vertical-align: top;
         }
 
+        .detail-cell {
+            padding-top: 25px;
+            line-height: 2.2;
+            font-size: 15px;
+
+            .row {
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+
+                .label {
+                    width: 90px;
+                    height: 20px;
+                    font-size: 14px;
+                    margin-right: 5px;
+                }
+            }
+        }
+
         tbody tr {
-            height: 600px;
+            height: 550px !important;
         }
 
         tfoot td {
             border: 1.2px solid #333;
             font-size: 14px;
-            padding:10px 10px;
+            padding: 10px 8px;
             vertical-align: bottom;
         }
 
@@ -200,4 +338,114 @@
             }
         }
     }
+}
+
+// Plain input for in-place editing (hide border on print)
+.plain-input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    color: #222;
+    outline: none;
+    min-width: 80px;
+    transition: border-color 0.2s;
+    padding: 2px 4px 2px 2px;
+    margin: 2px 0;
+
+    &:focus {
+        border-bottom: 1.5px solid #1967d2;
+        background: #eaf2fe;
+    }
+}
+
+.plain-textarea {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    color: #222;
+    outline: none;
+    width: 100%;
+    min-width: 80px;
+    max-width: 100%;
+    min-height: 36px;
+    padding: 2px 4px 2px 2px;
+    margin: 2px 0;
+    transition: border-color 0.2s;
+
+    &:focus {
+        border-bottom: 1.5px solid #1967d2;
+        background: #eaf2fe;
+    }
+}
+
+.amount-input {
+    text-align: right;
+    min-width: 90px;
+}
+
+/* Print media rules for copies and hiding web-only */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .print-only {
+        display: block !important;
+    }
+
+    body {
+        background: #fff !important;
+    }
+
+    #eachPage {
+        page-break-after: always;
+    }
+
+    /* Make all inputs/textareas look like plain text */
+    .plain-input,
+    .plain-textarea,
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        border: none !important;
+        background: transparent !important;
+        color: #222 !important;
+        outline: none !important;
+        box-shadow: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        pointer-events: none;
+        resize: none !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+
+    /* Retain table borders for print */
+    .invoice-table th,
+    .invoice-table td {
+        border: 1.2px solid #333 !important;
+        background: transparent !important;
+    }
+
+    .print-container-A4 {
+        border: none !important;
+        box-shadow: none !important;
+        background: #fff !important;
+    }
+
+    .signature-section {
+        border: none !important;
+    }
+}
+
+.print-only {
+    display: none;
 }
