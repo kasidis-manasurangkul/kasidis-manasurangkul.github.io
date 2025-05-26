@@ -13,6 +13,7 @@ interface PrintData {
     date: string;
     customer: string;
     address: string;
+    taxId: string;
     detail: PrintDetail;
 }
 
@@ -29,19 +30,22 @@ export class AppComponent {
             label: 'LMG',
             value: 'lmg',
             address: 'จัสมินซิตี้ชั้น 14,15,17,19 เลขที่ 2 ซ.สุขุมวิท 23 ถ.สุขุมวิท ขว.คลองเตยเหนือ ข.วัฒนา กทม 10110',
-            customer: 'บริษัท แอลเอ็มจี ประกันภัย จำกัด (มหาชน)'
+            customer: 'บริษัท แอลเอ็มจี ประกันภัย จำกัด (มหาชน)',
+            taxId: '0-10-7-555-00017-1'
         },
         {
             label: 'ไทยประกัน',
             value: 'thai',
             address: '34/3  ซอยหลังสวน ถนนเพลินจิต แขวงลุมพินี เขตปทุมวัน กทม.10330',
-            customer: 'บริษัท ไทยประกันภัย จำกัด (มหาชน)'
+            customer: 'บริษัท ไทยประกันภัย จำกัด (มหาชน)',
+            taxId: '0-10-7-536-00082-0'
         },
         {
             label: 'อื่นๆ',
             value: 'other',
             address: '',
-            customer: ''
+            customer: '',
+            taxId: ''
         }
     ];
     activeTab = 'lmg';
@@ -53,6 +57,7 @@ export class AppComponent {
         date: '',
         customer: '',
         address: '',
+        taxId: '',
         detail: {
             brand: '',
             plate: '',
@@ -108,9 +113,10 @@ export class AppComponent {
         const found = this.addressTabs.find(t => t.value === tab);
         this.printData = {
             docNo: '1',
-            date: '19/04/2568',
+            date: '01/01/2568',
             customer: found ? found.customer : '',
             address: found ? found.address : '',
+            taxId: found ? found.taxId : '',
             detail: {
                 brand: '',
                 plate: '',

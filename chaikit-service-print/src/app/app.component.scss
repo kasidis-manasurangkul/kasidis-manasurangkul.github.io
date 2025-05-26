@@ -11,6 +11,7 @@ body {
     margin-bottom: 5px;
     margin-left: 3px;
     justify-content: center;
+    width: 100%;
 }
 
 .tab {
@@ -212,7 +213,8 @@ body {
             font-weight: 600;
             font-size: 15px;
             margin-right: 10px;
-            text-align: right;
+            text-align: left;
+            margin:  auto 0;
         }
 
         .customer-value,
@@ -257,11 +259,13 @@ body {
                 align-items: center;
                 margin-bottom: 5px;
 
+
                 .label {
                     width: 90px;
                     height: 20px;
                     font-size: 14px;
                     margin-right: 5px;
+                    padding-bottom: 10px;
                 }
             }
         }

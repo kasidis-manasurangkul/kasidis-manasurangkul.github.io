@@ -35,10 +35,9 @@
         </div>
         <hr class="header-line" />
         <div class="company-address">
-            3874/2 ถนนพระราม 4 พระโขนง คลองเตย กรุงเทพฯ 10110
-            โทร : 02-249-9414-5 , 02-671-6168-70 แฟกซ์ : 02-249-4837<br>
-            3874/2 RAMA 4 ROAD, PRAKANONG, KLONGTOEY, BANGKOK 10110 TEL : 02-249-9414-5 , 02-671-6168-70 FAX :
-            02-249-4837<br>
+            3874/2 ถนนพระราม 4 แขวงพระโขนง เขตคลองเตย กรุงเทพฯ 10110
+            โทร : 02-249-9414-5 , 02-671-6168-70<br>
+            3874/2 RAMA 4 ROAD, PRAKANONG, KLONGTOEY, BANGKOK 10110 TEL : 02-249-9414-5 , 02-671-6168-70<br>
             เลขประจำตัวผู้เสียภาษีอากร 0105535024359
         </div>
     </div>
@@ -60,11 +59,10 @@
             <div class="document-value">
                 <input [(ngModel)]="printData.date" type="text" class="plain-input" />
             </div>
-            <div class="info-label">[ เอกสารออกเป็นชุด]</div>
         </div>
     </div>
     <!-- CUSTOMER INFO -->
-    <div style="border: 1px black solid; padding: 5px; margin-bottom: 10px;">
+    <div style="border: 1px black solid; padding: 5px 20px; margin-bottom: 10px;">
         <div class="customer-section">
             <div class="customer-label">
                 ลูกค้า :
@@ -78,8 +76,17 @@
                 ที่อยู่ :
             </div>
             <div class="ref-value">
-                <textarea [(ngModel)]="printData.address" rows="2" style="width: 680px; resize: none;"
-                    class="plain-textarea"></textarea>
+                <input [(ngModel)]="printData.address" rows="2" style="width: 680px; resize: none;"
+                    class="plain-input">
+            </div>
+        </div>
+        <div class="ref-section">
+            <div class="ref-label">
+                เลขประจำตัวผู้เสียภาษี :
+            </div>
+            <div class="ref-value">
+                <input [(ngModel)]="printData.taxId" rows="2" style="width: 550px; resize: none;"
+                    class="plain-input">
             </div>
         </div>
     </div>
@@ -89,7 +96,7 @@
             <tr>
                 <th class="center" style="width: 18%;">ลำดับ</th>
                 <th class="center" style="width: 70%;">รายการ</th>
-                <th class="center" style="width: 12%;">จำนวนเงิน</th>
+                <th class="center" style="width: 12%;">รวมเงิน</th>
             </tr>
         </thead>
         <tbody>
@@ -129,12 +136,12 @@
                 <td class="right total-value">{{ subtotal | number: '1.2-2' }}</td>
             </tr>
             <tr>
-                <td colspan="2" class="right total-label">จำนวนภาษีมูลค่าเพิ่ม</td>
+                <td colspan="2" class="right total-label">ภาษีมูลค่าเพิ่ม</td>
                 <td class="right total-value">{{ vat | number: '1.2-2' }}</td>
             </tr>
             <tr>
                 <td colspan="1" class="right total-label">
-                    จำนวนเงินทั้งสิ้น<br />
+                    รวมทั้งสิ้น
                 </td>
                 <td class="center total-label">{{ bahtText }}</td>
                 <td class="right total-value">{{ total | number: '1.2-2' }}</td>
@@ -177,21 +184,21 @@
                 </div>
                 <hr class="header-line" />
                 <div class="company-address">
-                    3874/2 ถนนพระราม 4 พระโขนง คลองเตย กรุงเทพฯ 10110
-                    โทร : 02-249-9414-5 , 02-671-6168-70 แฟกซ์ : 02-249-4837<br>
-                    3874/2 RAMA 4 ROAD, PRAKANONG, KLONGTOEY, BANGKOK 10110 TEL : 02-249-9414-5 , 02-671-6168-70 FAX :
-                    02-249-4837<br>
+                    3874/2 ถนนพระราม 4 แขวงพระโขนง เขตคลองเตย กรุงเทพฯ 10110
+                    โทร : 02-249-9414-5 , 02-671-6168-70<br>
+                    3874/2 RAMA 4 ROAD, PRAKANONG, KLONGTOEY, BANGKOK 10110 TEL : 02-249-9414-5 , 02-671-6168-70<br>
                     เลขประจำตัวผู้เสียภาษีอากร 0105535024359
                 </div>
             </div>
-            <!-- ...same as above body... -->
+            <!-- ... rest of template as before ... -->
+            <!-- document INFO -->
             <div style="margin-bottom: 10px;">
                 <div class="document-section">
                     <div class="document-label">
                         เลขที่ :
                     </div>
                     <div class="document-value">
-                        {{ printData.docNo }}
+                        <input [(ngModel)]="printData.docNo" type="text" class="plain-input" />
                     </div>
                 </div>
                 <div class="document-section">
@@ -199,18 +206,18 @@
                         วันที่ :
                     </div>
                     <div class="document-value">
-                        {{ printData.date }}
+                        <input [(ngModel)]="printData.date" type="text" class="plain-input" />
                     </div>
-                    <div class="info-label">[ เอกสารออกเป็นชุด]</div>
                 </div>
             </div>
-            <div style="border: 1px black solid; padding: 5px; margin-bottom: 10px;">
+            <!-- CUSTOMER INFO -->
+            <div style="border: 1px black solid; padding: 5px 20px; margin-bottom: 10px;">
                 <div class="customer-section">
                     <div class="customer-label">
                         ลูกค้า :
                     </div>
                     <div class="customer-value">
-                        {{ printData.customer }}
+                        <input [(ngModel)]="printData.customer" style="width: 680px;" type="text" class="plain-input" />
                     </div>
                 </div>
                 <div class="ref-section">
@@ -218,16 +225,25 @@
                         ที่อยู่ :
                     </div>
                     <div class="ref-value">
-                        <span style="white-space: pre-line">{{ printData.address }}</span>
+                        <input [(ngModel)]="printData.address" rows="2" style="width: 680px; resize: none;" class="plain-input">
+                    </div>
+                </div>
+                <div class="ref-section">
+                    <div class="ref-label">
+                        เลขประจำตัวผู้เสียภาษี :
+                    </div>
+                    <div class="ref-value">
+                        <input [(ngModel)]="printData.taxId" rows="2" style="width: 550px; resize: none;" class="plain-input">
                     </div>
                 </div>
             </div>
+            <!-- TABLE SECTION -->
             <table class="invoice-table">
                 <thead>
                     <tr>
                         <th class="center" style="width: 18%;">ลำดับ</th>
                         <th class="center" style="width: 70%;">รายการ</th>
-                        <th class="center" style="width: 12%;">จำนวนเงิน</th>
+                        <th class="center" style="width: 12%;">รวมเงิน</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -236,23 +252,26 @@
                         <td class="left detail-cell" style="vertical-align: top;">
                             <div class="row">
                                 <div class="label">ยี่ห้อ: </div>
-                                {{ printData.detail.brand }}
+                                <input [(ngModel)]="printData.detail.brand" type="text" class="plain-input" style="width: 300px;" />
                             </div>
                             <div class="row">
                                 <div class="label">ทะเบียน: </div>
-                                {{ printData.detail.plate }}
+                                <input [(ngModel)]="printData.detail.plate" type="text" class="plain-input" style="width: 300px;" />
                             </div>
                             <div class="row">
                                 <div class="label">เลขที่เคลม: </div>
-                                {{ printData.detail.claimNo }}
+                                <input [(ngModel)]="printData.detail.claimNo" type="text" class="plain-input"
+                                    style="width: 300px;" />
                             </div>
                             <div class="row">
                                 <span class="label">กรมธรรม์: </span>
-                                {{ printData.detail.policyNo }}
+                                <input [(ngModel)]="printData.detail.policyNo" type="text" class="plain-input"
+                                    style="width: 300px;" />
                             </div>
                         </td>
                         <td class="right" style="vertical-align: top;">
-                            {{ printData.detail.amount | number: '1.2-2' }}
+                            <input [(ngModel)]="printData.detail.amount" type="number" min="0" step="0.01"
+                                class="plain-input amount-input" />
                         </td>
                     </tr>
                 </tbody>
@@ -262,18 +281,19 @@
                         <td class="right total-value">{{ subtotal | number: '1.2-2' }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="right total-label">จำนวนภาษีมูลค่าเพิ่ม</td>
+                        <td colspan="2" class="right total-label">ภาษีมูลค่าเพิ่ม</td>
                         <td class="right total-value">{{ vat | number: '1.2-2' }}</td>
                     </tr>
                     <tr>
                         <td colspan="1" class="right total-label">
-                            จำนวนเงินทั้งสิ้น<br />
+                            รวมทั้งสิ้น
                         </td>
                         <td class="center total-label">{{ bahtText }}</td>
                         <td class="right total-value">{{ total | number: '1.2-2' }}</td>
                     </tr>
                 </tfoot>
             </table>
+            <!-- SIGNATURE SECTION -->
             <div class="signature-section">
                 <div class="sign-box">
                     <div class="label">ผู้รับเงิน</div>
