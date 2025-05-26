@@ -76,8 +76,7 @@
                 ที่อยู่ :
             </div>
             <div class="ref-value">
-                <input [(ngModel)]="printData.address" rows="2" style="width: 680px; resize: none;"
-                    class="plain-input">
+                <input [(ngModel)]="printData.address" rows="2" style="width: 680px; resize: none;" class="plain-input">
             </div>
         </div>
         <div class="ref-section">
@@ -85,18 +84,17 @@
                 เลขประจำตัวผู้เสียภาษี :
             </div>
             <div class="ref-value">
-                <input [(ngModel)]="printData.taxId" rows="2" style="width: 550px; resize: none;"
-                    class="plain-input">
+                <input [(ngModel)]="printData.taxId" rows="2" style="width: 550px; resize: none;" class="plain-input">
             </div>
         </div>
     </div>
     <!-- TABLE SECTION -->
-    <table class="invoice-table">
+    <table class="invoice-table" style="margin-bottom: 0;">
         <thead>
             <tr>
-                <th class="center" style="width: 18%;">ลำดับ</th>
+                <th class="center" style="width: 5%;">ลำดับ</th>
                 <th class="center" style="width: 70%;">รายการ</th>
-                <th class="center" style="width: 12%;">รวมเงิน</th>
+                <th class="center" style="width: 25%;">รวมเงิน</th>
             </tr>
         </thead>
         <tbody>
@@ -139,12 +137,17 @@
                 <td colspan="2" class="right total-label">ภาษีมูลค่าเพิ่ม</td>
                 <td class="right total-value">{{ vat | number: '1.2-2' }}</td>
             </tr>
-            <tr>
-                <td colspan="1" class="right total-label">
-                    รวมทั้งสิ้น
+        </tfoot>
+    </table>
+    <table class="invoice-table" style="margin-top: 0;">
+        <tfoot>
+            <tr >
+                <td style="width: 55%; border-top: none !important;" class="center total-label">
+                    {{ bahtText }}
                 </td>
-                <td class="center total-label">{{ bahtText }}</td>
-                <td class="right total-value">{{ total | number: '1.2-2' }}</td>
+                <td class="right total-label" style="width: 20%; border-top: none !important;">จำนวนเงินรวมทั้งสิ้น</td>
+                <td class="right total-value" style="width: 25%; min-width: 90px; border-top: none !important;">{{ total
+                    | number: '1.2-2' }}</td>
             </tr>
         </tfoot>
     </table>
@@ -225,7 +228,8 @@
                         ที่อยู่ :
                     </div>
                     <div class="ref-value">
-                        <input [(ngModel)]="printData.address" rows="2" style="width: 680px; resize: none;" class="plain-input">
+                        <input [(ngModel)]="printData.address" rows="2" style="width: 680px; resize: none;"
+                            class="plain-input">
                     </div>
                 </div>
                 <div class="ref-section">
@@ -233,17 +237,18 @@
                         เลขประจำตัวผู้เสียภาษี :
                     </div>
                     <div class="ref-value">
-                        <input [(ngModel)]="printData.taxId" rows="2" style="width: 550px; resize: none;" class="plain-input">
+                        <input [(ngModel)]="printData.taxId" rows="2" style="width: 550px; resize: none;"
+                            class="plain-input">
                     </div>
                 </div>
             </div>
             <!-- TABLE SECTION -->
-            <table class="invoice-table">
+            <table class="invoice-table" style="margin-bottom: 0;">
                 <thead>
                     <tr>
-                        <th class="center" style="width: 18%;">ลำดับ</th>
+                        <th class="center" style="width: 5%;">ลำดับ</th>
                         <th class="center" style="width: 70%;">รายการ</th>
-                        <th class="center" style="width: 12%;">รวมเงิน</th>
+                        <th class="center" style="width: 25%;">รวมเงิน</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -252,11 +257,13 @@
                         <td class="left detail-cell" style="vertical-align: top;">
                             <div class="row">
                                 <div class="label">ยี่ห้อ: </div>
-                                <input [(ngModel)]="printData.detail.brand" type="text" class="plain-input" style="width: 300px;" />
+                                <input [(ngModel)]="printData.detail.brand" type="text" class="plain-input"
+                                    style="width: 300px;" />
                             </div>
                             <div class="row">
                                 <div class="label">ทะเบียน: </div>
-                                <input [(ngModel)]="printData.detail.plate" type="text" class="plain-input" style="width: 300px;" />
+                                <input [(ngModel)]="printData.detail.plate" type="text" class="plain-input"
+                                    style="width: 300px;" />
                             </div>
                             <div class="row">
                                 <div class="label">เลขที่เคลม: </div>
@@ -284,12 +291,19 @@
                         <td colspan="2" class="right total-label">ภาษีมูลค่าเพิ่ม</td>
                         <td class="right total-value">{{ vat | number: '1.2-2' }}</td>
                     </tr>
+                </tfoot>
+            </table>
+            <table class="invoice-table" style="margin-top: 0;">
+                <tfoot>
                     <tr>
-                        <td colspan="1" class="right total-label">
-                            รวมทั้งสิ้น
+                        <td style="width: 55%; border-top: none !important;" class="center total-label">
+                            {{ bahtText }}
                         </td>
-                        <td class="center total-label">{{ bahtText }}</td>
-                        <td class="right total-value">{{ total | number: '1.2-2' }}</td>
+                        <td class="right total-label" style="width: 20%; border-top: none !important;">
+                            จำนวนเงินรวมทั้งสิ้น</td>
+                        <td class="right total-value" style="width: 25%; min-width: 90px; border-top: none !important;">
+                            {{ total |
+                            number: '1.2-2' }}</td>
                     </tr>
                 </tfoot>
             </table>
