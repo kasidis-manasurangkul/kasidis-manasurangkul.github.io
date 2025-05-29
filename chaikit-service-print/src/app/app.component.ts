@@ -34,11 +34,11 @@ export class AppComponent {
             taxId: '0-10-7-555-00017-1'
         },
         {
-            label: 'ไทยประกัน',
-            value: 'thai',
-            address: '34/3  ซอยหลังสวน ถนนเพลินจิต แขวงลุมพินี เขตปทุมวัน กทม.10330',
-            customer: 'บริษัท ไทยประกันภัย จำกัด (มหาชน)',
-            taxId: '0-10-7-536-00082-0'
+            label: 'วิริยะ',
+            value: 'viriya',
+            address: '1024/9 อาคารริมขอบฟ้า ชั้น 1-2 , 4 ถ.พระราม 4 แขวงทุ่งมหาเมฆ เขตสาทร กทม. 10120',
+            customer: 'บริษัท วิริยะประกันภัย จำกัด (มหาชน) ศูนย์ลุมพินี สาขาที่ 00009',
+            taxId: ' 0-10-7-555-00013-9'
         },
         {
             label: 'อื่นๆ',
@@ -98,9 +98,11 @@ export class AppComponent {
     restoreDataForTab(tab: string) {
         const key = 'printData_' + tab;
         const data = localStorage.getItem(key);
+        const globalDocNo = localStorage.getItem('global_docNo') || '1';
         if (data) {
             try {
                 this.printData = JSON.parse(data);
+                this.printData.docNo = globalDocNo; // Always set from global!
             } catch (e) {
                 this.resetPrintDataToTabDefault(tab);
             }
@@ -109,10 +111,13 @@ export class AppComponent {
         }
     }
 
+
     resetPrintDataToTabDefault(tab: string) {
         const found = this.addressTabs.find(t => t.value === tab);
+        // Get global docNo or fallback
+        const globalDocNo = localStorage.getItem('global_docNo') || '1';
         this.printData = {
-            docNo: '1',
+            docNo: globalDocNo,
             date: '01/01/2568',
             customer: found ? found.customer : '',
             address: found ? found.address : '',
@@ -127,9 +132,11 @@ export class AppComponent {
         };
     }
 
+
     saveDataForTab(tab: string) {
         const key = 'printData_' + tab;
         localStorage.setItem(key, JSON.stringify(this.printData));
+        localStorage.setItem('global_docNo', this.printData.docNo); // Save globally!
     }
 
     get subtotal(): number {
