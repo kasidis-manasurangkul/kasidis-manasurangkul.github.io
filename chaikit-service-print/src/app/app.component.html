@@ -111,19 +111,19 @@
                         <input [(ngModel)]="printData.detail.plate" type="text" class="plain-input"
                             style="width: 300px;" />
                     </div>
-                    <div class="row">
+                    <div *ngIf="activeTab != 'other'" class="row">
                         <div class="label">เลขที่เคลม: </div>
                         <input [(ngModel)]="printData.detail.claimNo" type="text" class="plain-input"
                             style="width: 300px;" />
                     </div>
-                    <div class="row">
+                    <div *ngIf="activeTab != 'other'" class="row">
                         <span class="label">กรมธรรม์: </span>
                         <input [(ngModel)]="printData.detail.policyNo" type="text" class="plain-input"
                             style="width: 300px;" />
                     </div>
                 </td>
                 <td class="right" style="vertical-align: top;">
-                    <input [(ngModel)]="printData.detail.amount" type="number" min="0" step="0.01"
+                    <input [ngModel]="formattedAmount" (input)="onAmountInput($event)" type="text"
                         class="plain-input amount-input" />
                 </td>
             </tr>
@@ -277,7 +277,7 @@
                             </div>
                         </td>
                         <td class="right" style="vertical-align: top;">
-                            <input [(ngModel)]="printData.detail.amount" type="number" min="0" step="0.01"
+                            <input [ngModel]="formattedAmount" (input)="onAmountInput($event)" type="text"
                                 class="plain-input amount-input" />
                         </td>
                     </tr>

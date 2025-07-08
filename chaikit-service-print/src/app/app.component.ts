@@ -152,6 +152,54 @@ export class AppComponent {
         return bahttext(this.total || 0);
     }
 
+    // Format amount with commas for display
+    get formattedAmount(): string {
+        const amount = this.printData.detail.amount;
+        if (!amount && amount !== 0) return '';
+        return this.formatNumberWithCommas(amount);
+    }
+
+    // Set amount from formatted string
+    set formattedAmount(value: string) {
+        const numericValue = this.parseNumberFromFormatted(value);
+        this.printData.detail.amount = numericValue;
+    }
+
+    // Helper method to format number with commas
+    private formatNumberWithCommas(num: number): string {
+        if (isNaN(num) || num === 0) return '';
+        // Use toLocaleString without forcing decimal places
+        return num.toLocaleString('en-US');
+    }
+
+    // Helper method to parse number from formatted string
+    private parseNumberFromFormatted(value: string): number {
+        if (!value) return 0;
+        // Remove commas and parse
+        const cleaned = value.replace(/,/g, '');
+        const parsed = parseFloat(cleaned);
+        return isNaN(parsed) ? 0 : parsed;
+    }
+
+    // Handle input event for amount field
+    onAmountInput(event: any): void {
+        const inputValue = event.target.value;
+        
+        // If empty, allow it to be empty
+        if (!inputValue || inputValue.trim() === '') {
+            this.printData.detail.amount = 0;
+            event.target.value = '';
+            return;
+        }
+        
+        const numericValue = this.parseNumberFromFormatted(inputValue);
+        this.printData.detail.amount = numericValue;
+        
+        // Format the input value and update the input field
+        const formattedValue = this.formatNumberWithCommas(numericValue);
+        event.target.value = formattedValue;
+    }
+
     getCopyPages() {
         // Number of copies, exclude original (first), but minimum is 0
         const n = Math.max(0, Math.min(Number(this.copies) || 1, 10));
